@@ -1,0 +1,35 @@
+nextflow_process {
+
+    name "Test process TRIMADAPTERS"
+    script "main.nf"
+    process "TRIMADAPTERS"
+
+    tag "methods"
+
+    test("trimmed_fqs") {
+
+        when {
+            process {
+                """
+                input[0] = Channel.of(
+                new SampleMetadata(name:"sub",
+                r1:file("${baseDir}/tests/data/sub1.fq", checkIfExists:true),
+                r2:file("${baseDir}/tests/data/sub2.fq", checkIfExists:true)
+                )
+                )
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            //Trimmed fastq files should not contain the adaptor sequences
+            with(process.out.trimmed_fastqs.flatten()) {
+                assert get(1).readLines().any { ! it.contains('AGATCGGAAGAGCACACGT') }
+                assert get(1).readLines().any { ! it.contains('AGATCGGAAGAGCGTCGTG') }
+                assert get(2).readLines().any { ! it.contains('AGATCGGAAGAGCACACGT') }
+                assert get(2).readLines().any { ! it.contains('AGATCGGAAGAGCGTCGTG') }
+            }
+        }
+    }
+}

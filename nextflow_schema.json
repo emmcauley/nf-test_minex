@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/org/repo/master/nextflow_schema.json",
+  "description": "Schema for the nextflow workflow",
+  "type": "object",
+  "defs": {
+    "main": {
+      "title": "Main workflow parameters",
+      "type": "object",
+      "required": [
+        "input"
+      ],
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "The input file to process",
+          "format": "file-path",
+          "pattern": ".*.tsv$",
+          "exists": true,
+          "schema": "schemas/input_schema.json"
+        },
+        "output_dir": {
+          "type": "string",
+          "description": "The output directory",
+          "format": "directory-path",
+          "pattern": "^\\S+$",
+          "errorMessage": "Output directory must be provided and cannot contain spaces"
+        }
+      }
+    },
+    "resources": {
+      "title": "Process resource parameters",
+      "type": "object",
+      "properties": {
+        "docker_image_prefix": {
+          "type": "string",
+          "hidden": true
+        },
+        "docker_image_version": {
+          "type": "string",
+          "hidden": true
+        },
+        "toolkit_image": {
+          "type": "string",
+          "hidden": true
+        },
+        "toolkit_resources": {
+          "type": "string",
+          "hidden": true
+        },
+        "max_resources": {
+          "type": "string",
+          "hidden": true
+        },
+        "scale_after_attempt": {
+          "type": "integer",
+          "hidden": true
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "#/defs/main"
+    },
+    {
+      "$ref": "#/defs/resources"
+    }
+  ]
+}

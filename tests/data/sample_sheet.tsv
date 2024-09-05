@@ -1,0 +1,2 @@
+sample	fastq_1	fastq_2
+sub	tests/data/sub1.fq	tests/data/sub2.fq

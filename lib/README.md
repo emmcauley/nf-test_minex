@@ -1,0 +1,1 @@
+Groovy classes go here. See [the docs](https://training.nextflow.io/advanced/structure/#lib) for details.
