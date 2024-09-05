@@ -12,7 +12,7 @@ dependencies:
   - nextflow>=23.10,<24
   - pytest>=8.0.0
   - pytest-workflow=2.1.0
-  - nf-test=0.8.4
+  - nf-test=0.9.0
   # Other
   - shellcheck>=0.9
   - cutadapt=4.9.*
