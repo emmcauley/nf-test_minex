@@ -1,0 +1,29 @@
+nextflow_process {
+
+    name "Test Process HELLOWORLD"
+    script "main.nf"
+    process "HELLOWORLD"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                // define parameters here. Example:
+                // outdir = "tests/results"
+            }
+            process {
+                """
+                // define inputs of the process here. Example:
+                input[0] = file("/Users/erin/git/nf-test_minex/tests/data/sample_sheet.tsv")
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert process.out.output_stdout[0] ==~ "/Users/erin/git/nf-test_minex/tests/data/sample_sheet.tsv\n"
+
+        }
+    }
+
+}
